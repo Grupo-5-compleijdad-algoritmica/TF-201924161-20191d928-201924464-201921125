@@ -10,3 +10,9 @@ class interseccion:
         self.Ydestino = Ydestino
         self.Yorigen = Yorigen
         self.Xdestino = Xdestino
+
+    def getOrigen(self):
+        return self.origen
+
+    def getDestino(self):
+        return self.destino
