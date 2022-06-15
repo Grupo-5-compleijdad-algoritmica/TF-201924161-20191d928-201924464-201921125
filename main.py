@@ -2,6 +2,12 @@ import pandas as pd
 import networkx as nx
 import calle as c
 import interseccion as i
+from datetime import datetime
+
+def actualizar_hora(g, intersecciones, hora):
+    for i in range(len(intersecciones)):
+        g[intersecciones[i].getOrigen()][intersecciones[i].getDestino()]['weight'] = intersecciones[i].getFactorTrafico(hora)
+
 
 if __name__ == "__main__":
     datosIntersecciones = pd.read_csv("./data/Lima-intersecciones.csv", sep=';', header=None)
@@ -12,7 +18,7 @@ if __name__ == "__main__":
     conexiones = []
     ubicaciones = {}
 
-    hora = 10
+    hora = int(datetime.now().strftime('%H'))
 
     for linea in datosCalles.index:
         calles.append(c.calle(datosCalles[0][linea], datosCalles[1][linea], datosCalles[2][linea]))
@@ -32,3 +38,5 @@ if __name__ == "__main__":
     g = nx.Graph()
     g.add_nodes_from(ubicaciones.keys())
     g.add_edges_from(conexiones)
+
+    actualizar_hora(g, intersecciones, hora)
