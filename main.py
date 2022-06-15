@@ -3,20 +3,6 @@ import networkx as nx
 import calle as c
 import interseccion as i
 
-
-def calcular_factor_trafico(velocidad, distancia, hora):
-    if 0 < hora <= 7:
-        return velocidad * distancia
-    elif 7 < hora <= 9:
-        return velocidad * distancia * 3
-    elif 9 < hora <= 17:
-        return velocidad * distancia * 1.5
-    elif 17 < hora <= 21:
-        return velocidad * distancia * 3
-    else:
-        return velocidad * distancia * 1.5
-
-
 if __name__ == "__main__":
     datosIntersecciones = pd.read_csv("./data/Lima-intersecciones.csv", sep=';', header=None)
     datosCalles = pd.read_csv("./data/Lima-calles.csv", sep=';', header=None)
@@ -25,6 +11,8 @@ if __name__ == "__main__":
     intersecciones = []
     conexiones = []
     ubicaciones = {}
+
+    hora = 10
 
     for linea in datosCalles.index:
         calles.append(c.calle(datosCalles[0][linea], datosCalles[1][linea], datosCalles[2][linea]))
@@ -37,7 +25,7 @@ if __name__ == "__main__":
                                              datosIntersecciones[13][linea], datosIntersecciones[14][linea]))
 
     for i in range(len(intersecciones)):
-        conexiones.append((intersecciones[i].getOrigen(), intersecciones[i].getDestino()))
+        conexiones.append((intersecciones[i].getOrigen(), intersecciones[i].getDestino(), {'weight': intersecciones[i].getFactorTrafico(hora)}))
         ubicaciones[intersecciones[i].getOrigen()] = (intersecciones[i].getOrigenX(), intersecciones[i].getOrigenY())
         ubicaciones[intersecciones[i].getDestino()] = (intersecciones[i].getDestinoX(), intersecciones[i].getDestinoY())
 

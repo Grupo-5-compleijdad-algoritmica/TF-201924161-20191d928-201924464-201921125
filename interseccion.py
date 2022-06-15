@@ -11,6 +11,18 @@ class interseccion:
         self.origenY = origenY
         self.destinoY = destinoY
 
+    def getFactorTrafico(self, hora):
+        if 0 < hora <= 7:
+            return self.velocidad * self.distancia
+        elif 7 < hora <= 9:
+            return self.velocidad * self.distancia * 3
+        elif 9 < hora <= 17:
+            return self.velocidad * self.distancia * 1.5
+        elif 17 < hora <= 21:
+            return self.velocidad * self.distancia * 3
+        else:
+            return self.velocidad * self.distancia * 1.5
+
     def getOrigen(self):
         return self.origen
 
