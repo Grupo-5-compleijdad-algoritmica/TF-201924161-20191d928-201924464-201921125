@@ -51,6 +51,10 @@ if __name__ == "__main__":
         for i in range(len(intersecciones)):
             conexiones.append((intersecciones[i].getOrigen(), intersecciones[i].getDestino(),
                                {'weight': intersecciones[i].getDistancia}))
+    else:
+        for i in range(len(intersecciones)):
+            conexiones.append((intersecciones[i].getOrigen(), intersecciones[i].getDestino(),
+                               {'weight': intersecciones[i].getTiempo()}))
 
     g = nx.Graph()
     g.add_nodes_from(ubicaciones.keys())
