@@ -23,11 +23,17 @@ class interseccion:
         else:
             return self.velocidad * self.distancia * 1.5
 
+    def getTiempo(self):
+        return self.distancia * self.velocidad
+
     def getOrigen(self):
         return self.origen
 
     def getDestino(self):
         return self.destino
+
+    def getDistancia(self):
+        return self.distancia
 
     def getOrigenX(self):
         return self.origenX
