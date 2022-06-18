@@ -115,7 +115,7 @@ $$
 L(u) = mín { L(v) |  v \in Ti-1 }
 $$ 
 
-Definimos $ui-1=u$, $Si=Si-1{ ui-1 }={ u0, u1, ..., ui-1 }$, (decimos que u entra), $Ti=V \div Si$ y para cada vértice $v$ en $Ti$ adyacente a $u$ cambiamos su etiqueta $L(v)$ por la nueva etiqueta mín ${L(v), L(u) + p(u, v)}$:
+Definimos $ui-1=u$ | $Si=Si-1{ ui-1 }={ u0, u1, ..., ui-1 }$, (decimos que u entra), $Ti=V \div Si$ y para cada vértice $v$ en $Ti$ adyacente a $u$ cambiamos su etiqueta $L(v)$ por la nueva etiqueta mín ${L(v), L(u) + p(u, v)}$:
 
 $$
 L(v) \leftarrow mín {L(v), L(u)+p(u, v)}
