@@ -19,6 +19,22 @@ En la actualidad, una de las formas más comunes de trasladarnos rápidamente po
 Por ello, en el presente trabajo, veremos el proceso de implementación de Waze, una aplicación de escritorio que nos ayudará a movilizarnos por la ciudad de Lima de la manera más rápida posible tomando en cuenta los factores de tráfico horario, distancias de recorrido y velocidades permitidas por tramos.
 
 ---
+
+## **Objetivos**
+En esta sección se definirán los objetivos generales y específicos que han propuesto lograr en el desarrollo y cumplimiento del presente trabajo.
+
+### Objetivo General
+Construir una aplicación que permita encontrar rutas para transporte terrestre entre dos puntos, considerando que estas rutas sean las más rápidas en cuanto a factores de distancias y tráfico vehicular en la ciudad de Lima en el año 2022.
+
+### Objetivos Especificos
++ Construir sets de datos de información de la calles e intersecciones de la ciudad de Lima en el año 2022.
++ Identificar las velocidades de transporte permitidas de cada intersección entre calles de Lima en el año 2022.
++ Reconocer y analizar las horas de alto y bajo tráfico de las calles de la ciudad de Lima en el año 2022.
++ Construir algoritmo que calcule pesos en relación con los factores de distancia y tráfico de las calles de Lima en el año 2022. 
++ Construir algoritmos que busquen rutas rápidas o de menor peso obtenidos a través del algoritmo de cálculo de pesos de bordes o calles en la ciudad de Lima en el año 2022.
++ Construir la interfaz gráfica de usuario considerando criterios de User *Experience (UX)* que permita mostrar de forma gráfica las calles y rutas obtenidas de la calles de Lima en el año 2022.
+
+---
 ## Área de la Ciudad
 En esta sección, se detallará las específicaciones del área de mapa abarcado para el desarrollo de la aplicación.
 
@@ -27,8 +43,26 @@ La ciudad elegida para el proyecto es Lima, ciudad capital del Perú flanqueada 
 
 Cuenta con una superficie de 2638 km² y 43 distritos (Lima, Ancón, Ate, Barranco, Breña, Carabayllo, Chaclacayo, La Victoria, San Borja, entre otros) con una extensión aproximada de 1500 cuadras.
 
+### Imagen estática de la ciudad o porción de ciudad elegida
+A continuación se mostrará de forma gráfica la porción de las calles consideradas de la ciudad de Lima correspondiente al año 2022.
+
+![](https://i.ibb.co/87M8rc1/map2.png)
+> *Fuente: Elaboración propia a partir de gráficos obtenidos de Google Maps ([Ciudad de Lima Google Maps](https://www.google.com/maps/@-12.0545928,-76.955946,12.1z/data=!5m1!1e2 "Ver Mapa de la porción de ciudad elegida")).*
+
+---
+
 ## **Descripción del conjunto de datos**
 En esta sección se mostrarán el modelo de datos considerados para la elaboración del mapa de la ciudad de Lima así como para la obtención de las rutas óptimas en estima de los criterios de distancia y tráfico vehicular.
+
+### Datos consignados por calle
+Los datos consignados que representarán las calles de Lima se encuentran en el archivo Lima Calles (Lima-calles.csv). Los cuales cuentan con tres campos importantes que nos permitirán identificar cada una de ellas, a continuación se mostrarán los campos considerados con sus respectivas descripciones a manera de tabla. 
+
+| Nombre de los campos | Descripciones |
+|-----------|---------------|
+| ID_Calle | Representa al identificador de la calle, este no se repite. Es decir, no puede haber otra calle con el mismo identificador.|
+|Nombre_Calle | Nombre de la calle real de la ciudad de Lima al año 2022. |
+| Num_Intercepciones | Es el número de intercepciones con las que cuenta la calle en todo su recorrido|
+> *Fuente: Elaboración Propia*
 
 ### Datos consignados por intersección
 Los datos consignados que representan las intersecciones de la ciudad se encuentran en el archivo Lima intersecciones (Lima-intersecciones.csv). Este grupo de datos cuenta con los siguientes campos:
@@ -52,6 +86,28 @@ Los datos consignados que representan las intersecciones de la ciudad se encuent
 | Longitud_Destino_y2 | Longitud en la que se ubica la intersección destino |
 
 > *Fuente: Elaboración propia*
+
+---
+
+## **Grafo de la ciudad**
+Para la elaboración del grafo que representa la ciudad de Lima en el año 2022, se realizaron las siguientes pautas, esto con el objetivo de construir los dataset en un formato determinado de tal forma que nos permitan formar el grafo que representará visualmente la ciudad de lima y asimismo encontrar rutas óptimas de transporte vehicular.
+
++ Para crear el grafo que representará a la ciudad de Lima en primer lugar se creó una lista de adyacencia a partir de las coordenadas de inicio y fin de cada una de las calles de la ciudad de Lima.
++ Cada calle o avenida tiene un punto de inicio y un punto final, aprovechamos esto de tal manera que, si trazamos una recta desde el punto de inicio hacia el punto final de una calle, obtendremos una recta.
+![](https://i.ibb.co/pKQ8yDX/calle-recta.jpg)
+> ***Nota:** Representación de una calle como una recta*
+
++ Sin embargo, este procedimiento tiende a no ser exacto ya que las calles no son sólo rectas, sino que pueden haber calles en forma circulas entre otras. Para solucionar este problema, dividiremos una calle en varios segmentos que los llamaremos intercepciones de tal forma que podamos tener mayor precisión sobre la forma de las calles.
+![](https://i.ibb.co/nnsML3n/calle-con-intercepciones.jpg)
+> ***Nota:** Se opta por generar intercepciones en calles ya que nos permite mayor precisión en cuanto a la forma de las calles de Lima.*
+
++ En cuanto a las relaciones entre las calles, estas se obtendrán cuando al menos dos calles se intersectan ya que de esta manera podemos decir que entre estas dos calles existe al menos una esquina.
+![](https://i.ibb.co/dbct04M/calle-interseca.jpg)
+> ***Nota:** Calle Jr.Paruro y Jr. Leticia se intersecan.*
+
++ La lista de adyacencia se creará a partir de las relaciones entre calles, si una calle A se interseca con una calle B, entonces una se agregará a la otra en la lista de adyacencia.
+
++ Finalmente con esta lista de adyacencia podemos crear el grafo a través de los nodos y aristas que son representados por las intersecciones y calles respectivamente. 
 
 ---
 
