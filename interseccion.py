@@ -46,3 +46,6 @@ class interseccion:
 
     def getDestinoY(self):
         return self.destinoY
+
+    def getCalleId(self):
+        return self.calleId

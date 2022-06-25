@@ -3,3 +3,6 @@ class calle:
         self.id = id
         self.nombre = nombre
         self.numIntersecciones = numIntersecciones
+
+    def getNombre(self):
+        return self.nombre
