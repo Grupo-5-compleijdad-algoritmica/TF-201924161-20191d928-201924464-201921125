@@ -210,6 +210,15 @@ Los resultados del calculo se muestran en la consola como una serie de nodos rec
 ![](https://i.ibb.co/3pDQwWL/lista.jpg)
 > Resultado de cálculo del algoritmo
 
+#### Implementación del cálculo de rutas alternativas
+Para el cálculo de las rutas alternativas se tomaron como criterios, las rutas sin considerar el tráfico y las rutas por criterio de distancia.
+
+#### Ruta más corta sin considerar el tráfico
+Para realizar la implementación del cálculo de esta ruta alternativa no se usó la función getFactorTráfico sino que más bien se usó el factor tiempo para el cálculo de esta ruta. 
+
+![](https://i.ibb.co/8gd5yqZ/tiempo.png)
+> Construcción de la lista de adyacencia con criterio de tiempo
+
 ## Interfaz gráfica
 Para realizar la implementación de la interfaz gráfica del sistema se utilizó la biblioteca tkinder, con ella declaramos una variable screen al que se le fue asignado las dimensiones, colores y titulos requeridos. Además, se agregó la sección “Ruta de viaje” en la que se muestran los IDs de las calles por las que se transita para llegar al punto que indique en los inputs de entrada. 
 ![](https://i.ibb.co/W014197/form-app.jpg)
