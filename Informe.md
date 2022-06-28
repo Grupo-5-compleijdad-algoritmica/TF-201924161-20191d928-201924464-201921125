@@ -1,5 +1,5 @@
 ![](https://i.ibb.co/zSJ1ksK/Sin-t-tulo.png)
-# Aplicación Waze (Complejidad algoritmica)
+# Aplicación Tu Ruta 
 #### Docente
 Reyes Silva, Patricia Daniela
 #### Integrantes
@@ -14,9 +14,9 @@ WS6B
 ---
 
 ## Introducción
-En la actualidad, una de las formas más comunes de trasladarnos rápidamente por una ciudad es haciendo uso de vehículos particulares. Para esto, necesitamos un conocimiento previo de las rutas que recorreremos en nuestro trayecto, tráfico de la ciudad, entre otras de las cuales pocas veces sabemos. Para solucionar esto existen múltiples **aplicaciones** que nos ayudan a realizar esta tarea, indicando cual es una ruta segura, corta, rápida, entre otras, para llegar a un determinado destino. 
+En la actualidad, una de las formas más comunes de trasladarnos rápidamente por una ciudad es haciendo uso de vehículos particulares. Para esto, necesitamos un conocimiento previo de las rutas que recorreremos en nuestro trayecto, tráfico de la ciudad, entre otras de las cuales pocas veces sabemos. Para solucionar esto existen múltiples aplicaciones que nos ayudan a realizar esta tarea, indicando cual es una ruta segura, corta, rápida, entre otras, para llegar a un determinado destino. 
 
-Por ello, en el presente trabajo, veremos el proceso de implementación de Waze, una aplicación de escritorio que nos ayudará a movilizarnos por la ciudad de Lima de la manera más rápida posible tomando en cuenta los factores de tráfico horario, distancias de recorrido y velocidades permitidas por tramos.
+Por ello, en el presente trabajo, veremos el proceso de implementación de Waze, renombrado como Tu Ruta, una aplicación de escritorio que nos ayudará a movilizarnos por la ciudad de Lima de la manera más rápida posible tomando en cuenta los factores de tráfico horario, distancias de recorrido y velocidades permitidas por tramos.
 
 ---
 
@@ -108,6 +108,9 @@ Para la elaboración del grafo que representa la ciudad de Lima en el año 2022,
 + La lista de adyacencia se creará a partir de las relaciones entre calles, si una calle A se interseca con una calle B, entonces una se agregará a la otra en la lista de adyacencia.
 
 + Finalmente con esta lista de adyacencia podemos crear el grafo a través de los nodos y aristas que son representados por las intersecciones y calles respectivamente. 
++ El grafo se verá como se muestra a continuación:
+![](https://i.ibb.co/C9h4h6G/mapa.png)
+>Interpretación del mapa de la ciudad (grafo)
 
 ---
 
@@ -180,6 +183,45 @@ $$
 Es decir, actualizamos la etiqueta de los vecinos de $u$ por fuera de $Si$.
 
 **Paso 3:** Si $i=n$, definimos $S=S_n$ y nos detenemos, Si $i<n$, hacemos $i=i+1$ y vamos al paso 2. (Salas, 2008, p. 3)
+
+### Implementación del algoritmo Dijkstra
+El algoritmo principal Dijkstra se implementó de la siguiente manera a nivel de código:
+![](https://i.ibb.co/Mkdpdvv/Dijkstra.png)
+> Algoritmo Dijkstra
+
+En el se ingresa una lista de adyacencia de nodos y el nodo inicial. El resultado de aplicar el algoritmo es una lista de nodos recorridos. A continuación veremos las variaciones de este algoritmo con los requerimientos establecidos en el trabajo:
+
+#### Implementación del cálculo de la ruta más corta
+Como se mencionó anteriormente en forma teoríca, para la implementación del algoritmo Dijkstra se tomó en cuenta el factor de tráfico horario que cambia los pesos en las aristas del mapa. Con esta consideración se desarrollo la implementación del algoritmo.
+
+Primero, se recoge la hora que marca el reloj del sistema para calcular el factor de tráfico necesario:
+![](https://i.ibb.co/8KhtMPK/actualizar-hora.png)
+> Algoritmo actualizar hora
+
+Con este factor se aplica el nuevo peso a todos los aristas de las intersecciones:
+![](https://i.ibb.co/hcK8BPc/get-Trafico.png)
+> Algoritmo obtener tráfico
+
+Con los nuevos pesos y los datos de entrada ingresados por el usuario, se procede a hacer uso del Dijkstra para calculas la ruta principal origen-destino.
+![](https://i.ibb.co/bBmMjTx/camino-Menor.jpg)
+> Algoritmo camino menor con los nuevos pesos
+
+Los resultados del calculo se muestran en la consola como una serie de nodos recorridos, para el ejemplo: Nodo 7 al 14, el resultado es el siguiente:
+![](https://i.ibb.co/3pDQwWL/lista.jpg)
+> Resultado de cálculo del algoritmo
+
+## Interfaz gráfica
+Para realizar la implementación de la interfaz gráfica del sistema se utilizó la biblioteca tkinder, con ella declaramos una variable screen al que se le fue asignado las dimensiones, colores y titulos requeridos. Además, se agregó la sección “Ruta de viaje” en la que se muestran los IDs de las calles por las que se transita para llegar al punto que indique en los inputs de entrada. 
+![](https://i.ibb.co/W014197/form-app.jpg)
+> Interfaz gráfica de Tu ruta (primera pantalla de carga)
+
+Luego de ingresar los datos que se piden en el primer formulario, la aplicación carga el archivo web index.html en el que se visualiza el mapa completo requerido y se marca con una línea azul el recorrido necesario para llegar al destino solicitado. Por ejemplo, el resultado de partir del punto 18 al punto 724 se visualiza a continuación:
+![](https://i.ibb.co/Js8NHgN/mapa-18-74.jpg)
+> Ruta desde el punto 18 al punto 724 (Plaza 2 de Mayo a Morococha)
+
+El resultado en la interfaz gráfica se muestra a continuación:
+![](https://i.ibb.co/pr57GH0/form-18-x.jpg)
+> Resultado en interfaz gráfica de Tu ruta (punto 18 al 724)
 
 ## **Conclusiones**
 
